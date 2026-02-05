@@ -1,443 +1,202 @@
 // ========================================
-// SPIDER-MAN THEMED PORTFOLIO - JAVASCRIPT
-// Interactive Effects & Animations
+// SPIDER-VERSE JS | ANIMATIONS & FX
 // ========================================
 
-// ===== NAVBAR FUNCTIONALITY =====
-const navbar = document.getElementById('navbar');
-const menuToggle = document.getElementById('menuToggle');
-const navLinks = document.querySelector('.nav-links');
-const navLinkItems = document.querySelectorAll('.nav-link');
+// --- 1. CUSTOM CURSOR & MAGNETIC EFFECT ---
+const cursorDot = document.querySelector('.cursor-dot');
+const cursorOutline = document.querySelector('.cursor-outline');
 
-// Navbar scroll effect
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
+window.addEventListener('mousemove', function(e) {
+    const posX = e.clientX;
+    const posY = e.clientY;
+
+    // Dot follows instantly
+    cursorDot.style.left = `${posX}px`;
+    cursorDot.style.top = `${posY}px`;
+
+    // Outline follows with lag
+    cursorOutline.animate({
+        left: `${posX}px`,
+        top: `${posY}px`
+    }, { duration: 500, fill: "forwards" });
+});
+
+// --- 2. HACKER TEXT EFFECT (Scramble Decode) ---
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%&";
+
+document.querySelectorAll(".hacker-text, .logo").forEach(element => {
+    element.onmouseover = event => {  
+        let iteration = 0;
+        const originalText = event.target.dataset.value;
+        
+        const interval = setInterval(() => {
+            event.target.innerText = event.target.innerText
+                .split("")
+                .map((letter, index) => {
+                    if(index < iteration) {
+                        return originalText[index];
+                    }
+                    return letters[Math.floor(Math.random() * 26)];
+                })
+                .join("");
+            
+            if(iteration >= originalText.length){ 
+                clearInterval(interval);
+            }
+            
+            iteration += 1 / 3;
+        }, 30);
     }
 });
 
-// Mobile menu toggle
-menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    const icon = menuToggle.querySelector('i');
-    icon.classList.toggle('fa-bars');
-    icon.classList.toggle('fa-times');
-});
+// Trigger one initial scramble for the main role
+setTimeout(() => {
+    const roleText = document.querySelector('.hacker-text');
+    if(roleText) roleText.dispatchEvent(new Event('mouseover'));
+}, 1000);
 
-// Close mobile menu on link click
-navLinkItems.forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        const icon = menuToggle.querySelector('i');
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
+
+// --- 3. 3D TILT EFFECT FOR CARDS ---
+const tiltCards = document.querySelectorAll('.tilt-card');
+
+tiltCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((y - centerY) / 10) * -1; // Invert for natural tilt
+        const rotateY = (x - centerX) / 10;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
     });
 });
 
-// Active nav link on scroll
-window.addEventListener('scroll', () => {
-    let current = '';
-    const sections = document.querySelectorAll('section');
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (scrollY >= (sectionTop - 200)) {
-            current = section.getAttribute('id');
-        }
-    });
 
-    navLinkItems.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').includes(current)) {
-            link.classList.add('active');
-        }
-    });
-});
-
-// ===== TYPEWRITER EFFECT =====
-const typewriter = document.getElementById('typewriter');
-const texts = [
-    'Computer Science Graduate',
-    'Risk Assessment Specialist',
-    'Cybersecurity Professional',
-    'Data Analysis Expert',
-    'Internal Controls Specialist'
-];
-let textIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-let typingSpeed = 100;
-
-function type() {
-    const currentText = texts[textIndex];
-    
-    if (isDeleting) {
-        typewriter.textContent = currentText.substring(0, charIndex - 1);
-        charIndex--;
-        typingSpeed = 50;
-    } else {
-        typewriter.textContent = currentText.substring(0, charIndex + 1);
-        charIndex++;
-        typingSpeed = 100;
-    }
-
-    if (!isDeleting && charIndex === currentText.length) {
-        // Pause at end
-        typingSpeed = 2000;
-        isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        textIndex = (textIndex + 1) % texts.length;
-        typingSpeed = 500;
-    }
-
-    setTimeout(type, typingSpeed);
-}
-
-// Start typewriter effect
-setTimeout(type, 1000);
-
-// ===== SPIDER WEB CANVAS ANIMATION =====
-const canvas = document.getElementById('spiderWeb');
+// --- 4. RED GLOWING SPIDER WEB BACKGROUND ---
+const canvas = document.getElementById('spiderVerse');
 const ctx = canvas.getContext('2d');
 
-// Set canvas size
-function setCanvasSize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-setCanvasSize();
-window.addEventListener('resize', setCanvasSize);
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-// Web nodes
-class WebNode {
-    constructor(x, y) {
+let particlesArray;
+
+// Mouse interaction
+let mouse = {
+    x: null,
+    y: null,
+    radius: (canvas.height/80) * (canvas.width/80)
+}
+
+window.addEventListener('mousemove', (e) => {
+    mouse.x = e.x;
+    mouse.y = e.y;
+});
+
+// Create Particle
+class Particle {
+    constructor(x, y, directionX, directionY, size, color) {
         this.x = x;
         this.y = y;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
+        this.directionX = directionX;
+        this.directionY = directionY;
+        this.size = size;
+        this.color = color;
     }
-
-    update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        // Bounce off edges
-        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-    }
-
+    
+    // Draw individual dot
     draw() {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255, 46, 46, 0.35)';
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+        ctx.fillStyle = '#ff003c'; // Red Dots
         ctx.fill();
+    }
+
+    // Update position
+    update() {
+        if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+        if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+
+        // Collision detection with mouse
+        let dx = mouse.x - this.x;
+        let dy = mouse.y - this.y;
+        let distance = Math.sqrt(dx*dx + dy*dy);
+
+        if (distance < mouse.radius + this.size) {
+            if (mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 10;
+            if (mouse.x > this.x && this.x > this.size * 10) this.x -= 10;
+            if (mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 10;
+            if (mouse.y > this.y && this.y > this.size * 10) this.y -= 10;
+        }
+        
+        this.x += this.directionX;
+        this.y += this.directionY;
+        this.draw();
     }
 }
 
-// Create web nodes
-const nodes = [];
-const nodeCount = 50;
-
-for (let i = 0; i < nodeCount; i++) {
-    nodes.push(new WebNode(
-        Math.random() * canvas.width,
-        Math.random() * canvas.height
-    ));
+// Init array
+function init() {
+    particlesArray = [];
+    let numberOfParticles = (canvas.height * canvas.width) / 9000; // Density
+    for (let i = 0; i < numberOfParticles; i++) {
+        let size = (Math.random() * 2) + 1;
+        let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+        let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+        let directionX = (Math.random() * 2) - 1;
+        let directionY = (Math.random() * 2) - 1;
+        let color = '#ff003c';
+        
+        particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+    }
 }
 
-// Animation loop
-function animateWeb() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+// Animation Loop (Connect the dots)
+function animate() {
+    requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
 
-    // Update and draw nodes
-    nodes.forEach(node => {
-        node.update();
-        node.draw();
-    });
+    for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+    }
+    connect();
+}
 
-    // Draw connections
-    for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-            const dx = nodes[i].x - nodes[j].x;
-            const dy = nodes[i].y - nodes[j].y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < 150) {
-                ctx.beginPath();
-                ctx.moveTo(nodes[i].x, nodes[i].y);
-                ctx.lineTo(nodes[j].x, nodes[j].y);
-                ctx.strokeStyle = `rgba(255, 46, 46, ${0.12 * (1 - distance / 150)})`;
+function connect() {
+    let opacityValue = 1;
+    for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a; b < particlesArray.length; b++) {
+            let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                           ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+            
+            if (distance < (canvas.width/7) * (canvas.height/7)) {
+                opacityValue = 1 - (distance/20000);
+                // The Web Lines
+                ctx.strokeStyle = 'rgba(255, 0, 60,' + opacityValue + ')';
                 ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
                 ctx.stroke();
             }
         }
     }
-
-    requestAnimationFrame(animateWeb);
 }
 
-animateWeb();
-
-// ===== MOUSE INTERACTION WITH WEB =====
-let mouseX = 0;
-let mouseY = 0;
-
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-
-    // Attract nodes to mouse
-    nodes.forEach(node => {
-        const dx = mouseX - node.x;
-        const dy = mouseY - node.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < 200) {
-            node.vx += dx * 0.00005;
-            node.vy += dy * 0.00005;
-        }
-    });
+window.addEventListener('resize', () => {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+    mouse.radius = ((canvas.height/80) * (canvas.height/80));
+    init();
 });
 
-// ===== SCROLL REVEAL ANIMATION =====
-function reveal() {
-    const reveals = document.querySelectorAll('.skill-card, .stat-item, .contact-card, .about-card, .project-placeholder');
-
-    reveals.forEach(element => {
-        const windowHeight = window.innerHeight;
-        const elementTop = element.getBoundingClientRect().top;
-        const revealPoint = 150;
-
-        if (elementTop < windowHeight - revealPoint) {
-            element.classList.add('reveal');
-            setTimeout(() => {
-                element.classList.add('active');
-            }, 100);
-        }
-    });
-}
-
-window.addEventListener('scroll', reveal);
-reveal(); // Initial check
-
-// ===== SMOOTH SCROLLING =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// ===== PARTICLE EFFECT ON CLICK =====
-function createWebSplash(x, y) {
-    const particleCount = 20;
-    const particles = [];
-
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.style.position = 'fixed';
-        particle.style.left = x + 'px';
-        particle.style.top = y + 'px';
-        particle.style.width = '4px';
-        particle.style.height = '4px';
-        particle.style.backgroundColor = '#e23636';
-        particle.style.borderRadius = '50%';
-        particle.style.pointerEvents = 'none';
-        particle.style.zIndex = '9999';
-        document.body.appendChild(particle);
-
-        const angle = (Math.PI * 2 * i) / particleCount;
-        const velocity = 3 + Math.random() * 2;
-        const vx = Math.cos(angle) * velocity;
-        const vy = Math.sin(angle) * velocity;
-
-        particles.push({ element: particle, x, y, vx, vy, life: 1 });
-    }
-
-    function animateParticles() {
-        let allDead = true;
-
-        particles.forEach(p => {
-            if (p.life > 0) {
-                allDead = false;
-                p.x += p.vx;
-                p.y += p.vy;
-                p.vy += 0.2; // gravity
-                p.life -= 0.02;
-
-                p.element.style.left = p.x + 'px';
-                p.element.style.top = p.y + 'px';
-                p.element.style.opacity = p.life;
-            }
-        });
-
-        if (!allDead) {
-            requestAnimationFrame(animateParticles);
-        } else {
-            particles.forEach(p => p.element.remove());
-        }
-    }
-
-    animateParticles();
-}
-
-document.addEventListener('click', (e) => {
-    createWebSplash(e.clientX, e.clientY);
-});
-
-// ===== HERO BUTTONS ANIMATION =====
-const heroButtons = document.querySelectorAll('.btn');
-heroButtons.forEach(button => {
-    button.addEventListener('mouseenter', function(e) {
-        const rect = this.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        this.style.setProperty('--x', x + 'px');
-        this.style.setProperty('--y', y + 'px');
-    });
-});
-
-// ===== PARALLAX EFFECT =====
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const heroContent = document.querySelector('.hero-content');
-    const spiderBadge = document.querySelector('.spider-badge');
-
-    if (heroContent) {
-        heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
-        heroContent.style.opacity = 1 - (scrolled / 700);
-    }
-
-    if (spiderBadge) {
-        spiderBadge.style.transform = `translateY(${scrolled * 0.3}px) rotate(${scrolled * 0.1}deg)`;
-    }
-});
-
-// ===== SKILL CARDS HOVER EFFECT =====
-const skillCards = document.querySelectorAll('.skill-card');
-skillCards.forEach(card => {
-    card.addEventListener('mousemove', function(e) {
-        const rect = this.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
-
-        this.style.transform = `translateY(-10px) scale(1.05) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
-
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = '';
-    });
-});
-
-// ===== LOADING ANIMATION =====
-window.addEventListener('load', () => {
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '1';
-    }, 100);
-});
-
-// ===== SPIDER WEB TRAIL ON MOUSE MOVE =====
-let webTrail = [];
-const maxTrailLength = 20;
-
-document.addEventListener('mousemove', (e) => {
-    webTrail.push({ x: e.clientX, y: e.clientY, age: 0 });
-
-    if (webTrail.length > maxTrailLength) {
-        webTrail.shift();
-    }
-});
-
-function drawWebTrail() {
-    // This is handled by the canvas animation
-    webTrail.forEach((point, index) => {
-        point.age++;
-        if (point.age > 30) {
-            webTrail.splice(index, 1);
-        }
-    });
-
-    requestAnimationFrame(drawWebTrail);
-}
-
-drawWebTrail();
-
-// ===== EASTER EGG - SPIDER-MAN QUOTE =====
-let clickCount = 0;
-const logo = document.querySelector('.logo');
-
-if (logo) {
-    logo.addEventListener('click', () => {
-        clickCount++;
-        if (clickCount === 5) {
-            const quotes = [
-                "With great power comes great responsibility!",
-                "I'm just your friendly neighborhood developer!",
-                "Whatever comes our way, whatever battle we have raging inside us, we always have a choice.",
-                "The greatest power has always been the power to choose.",
-                "Not everyone is meant to make a difference. But for me, the choice to lead an ordinary life is no longer an option."
-            ];
-            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-            alert(randomQuote);
-            clickCount = 0;
-        }
-    });
-}
-
-// ===== CONSOLE MESSAGE =====
-console.log('%c🕷️ Spider-Man Portfolio', 'color: #e23636; font-size: 24px; font-weight: bold;');
-console.log('%cWith great skills comes great responsibility!', 'color: #2b4c7e; font-size: 16px;');
-console.log('%cDeveloped with ❤️ and webs', 'color: #e23636; font-size: 14px;');
-
-// ===== PERFORMANCE OPTIMIZATION =====
-// Debounce function for scroll events
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Apply debounce to scroll-heavy functions
-const debouncedReveal = debounce(reveal, 50);
-window.removeEventListener('scroll', reveal);
-window.addEventListener('scroll', debouncedReveal);
-
-// ===== ACCESSIBILITY ENHANCEMENTS =====
-// Keyboard navigation support
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Tab') {
-        document.body.classList.add('keyboard-nav');
-    }
-});
-
-document.addEventListener('mousedown', () => {
-    document.body.classList.remove('keyboard-nav');
-});
-
-// ===== INITIALIZE =====
-console.log('Spider-Man Portfolio initialized successfully! 🕷️');
+init();
+animate();
