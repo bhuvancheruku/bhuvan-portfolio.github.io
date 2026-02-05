@@ -133,7 +133,7 @@ class WebNode {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(226, 54, 54, 0.6)';
+        ctx.fillStyle = 'rgba(255, 46, 46, 0.35)';
         ctx.fill();
     }
 }
@@ -170,7 +170,7 @@ function animateWeb() {
                 ctx.beginPath();
                 ctx.moveTo(nodes[i].x, nodes[i].y);
                 ctx.lineTo(nodes[j].x, nodes[j].y);
-                ctx.strokeStyle = `rgba(226, 54, 54, ${0.2 * (1 - distance / 150)})`;
+                ctx.strokeStyle = `rgba(255, 46, 46, ${0.12 * (1 - distance / 150)})`;
                 ctx.lineWidth = 1;
                 ctx.stroke();
             }
