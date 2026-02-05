@@ -16,12 +16,11 @@
     --font-comic: 'Permanent Marker', cursive;
 }
 
-/* ... Keep previous Reset & Base styles ... */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    cursor: none;
+    cursor: none; /* Hide default cursor */
 }
 
 body {
@@ -31,156 +30,7 @@ body {
     overflow-x: hidden;
 }
 
-/* --- LOGO UPDATE --- */
-.logo {
-    font-family: var(--font-heading);
-    font-size: 2rem;
-    color: var(--neon-red);
-    text-shadow: 2px 2px 0 var(--neon-blue);
-    white-space: nowrap; /* Prevents wrapping on mobile */
-}
-
-/* --- RECOGNITION BADGE (For Timetable Project) --- */
-.recognition-badge {
-    position: absolute;
-    top: 30px; /* Below the folder tab */
-    right: -30px;
-    background: var(--spider-gold);
-    color: black;
-    padding: 5px 40px;
-    transform: rotate(45deg);
-    font-weight: 800;
-    font-size: 0.7rem;
-    z-index: 10;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-    border: 2px solid white;
-}
-
-/* --- PROJECT CARDS UPDATE --- */
-.project-card {
-    cursor: none; /* Custom cursor handles this */
-    position: relative;
-    /* ... previous styles ... */
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    min-height: 300px; /* Ensure uniform height */
-}
-
-.click-hint {
-    margin-top: auto;
-    text-align: right;
-    padding: 0.5rem 1rem;
-    font-size: 0.7rem;
-    color: var(--neon-blue);
-    opacity: 0;
-    transition: 0.3s;
-}
-
-.project-card:hover .click-hint {
-    opacity: 1;
-}
-
-/* --- MODAL (POPUP) STYLES --- */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.9);
-    backdrop-filter: blur(5px);
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-content {
-    background: #111;
-    margin: auto;
-    padding: 0;
-    border: 1px solid var(--neon-red);
-    width: 90%;
-    max-width: 600px;
-    position: relative;
-    box-shadow: 0 0 50px rgba(230, 0, 35, 0.3);
-    animation: zoomIn 0.3s ease;
-}
-
-@keyframes zoomIn {
-    from {transform: scale(0.8); opacity: 0;}
-    to {transform: scale(1); opacity: 1;}
-}
-
-.modal-header {
-    background: linear-gradient(90deg, #220005, #000);
-    padding: 1.5rem;
-    border-bottom: 1px solid #333;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.modal-header h2 {
-    font-family: var(--font-heading);
-    color: var(--neon-red);
-    font-size: 2rem;
-    margin: 0;
-}
-
-.modal-badge {
-    background: var(--spider-yellow);
-    color: black;
-    padding: 2px 8px;
-    font-weight: bold;
-    font-family: var(--font-comic);
-    transform: rotate(-2deg);
-    font-size: 0.9rem;
-}
-
-.close-modal {
-    color: #aaa;
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 28px;
-    font-weight: bold;
-    z-index: 2001;
-    transition: 0.3s;
-}
-
-.close-modal:hover {
-    color: var(--neon-red);
-    text-shadow: 0 0 10px var(--neon-red);
-    cursor: none; /* Keep custom cursor */
-}
-
-.modal-body {
-    padding: 2rem;
-}
-
-.modal-body p {
-    color: #ccc;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
-}
-
-.modal-tech {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.modal-links .btn {
-    padding: 0.5rem 1.5rem;
-    font-size: 0.9rem;
-    margin-right: 1rem;
-}
-
+/* --- BACKGROUND FX --- */
 .noise-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -243,9 +93,11 @@ nav {
 
 .logo {
     font-family: var(--font-heading);
-    font-size: 2.2rem;
+    font-size: 2rem;
     color: var(--neon-red);
     text-shadow: 2px 2px 0 var(--neon-blue);
+    white-space: nowrap;
+    cursor: none;
 }
 
 .nav-links {
@@ -271,6 +123,7 @@ nav {
 .hero {
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -306,6 +159,27 @@ nav {
     margin-bottom: 1rem;
     position: relative;
     text-shadow: 3px 3px 0px rgba(230,0,35,0.8);
+}
+
+.glitch-title::before, .glitch-title::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+}
+
+.glitch-title::before {
+    left: 2px;
+    text-shadow: -1px 0 var(--neon-red);
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+.glitch-title::after {
+    left: -2px;
+    text-shadow: -1px 0 var(--neon-blue);
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim 2.5s infinite linear alternate-reverse;
 }
 
 .role-container {
@@ -365,6 +239,14 @@ nav {
 .outline-btn:hover {
     border-color: var(--neon-blue);
     color: var(--neon-blue);
+}
+
+.scroll-down {
+    position: absolute;
+    bottom: 2rem;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    animation: float 2s infinite ease-in-out;
 }
 
 /* --- SECTIONS COMMON --- */
@@ -544,8 +426,9 @@ nav {
 }
 
 .project-card {
-    display: block;
-    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
     background: #0f0f0f;
     border: 1px solid #333;
     padding: 0;
@@ -568,6 +451,22 @@ nav {
     font-weight: 700;
     padding: 2px 8px;
     clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
+    z-index: 5;
+}
+
+.recognition-badge {
+    position: absolute;
+    top: 30px;
+    right: -30px;
+    background: var(--spider-gold);
+    color: black;
+    padding: 5px 40px;
+    transform: rotate(45deg);
+    font-weight: 800;
+    font-size: 0.7rem;
+    z-index: 10;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    border: 2px solid white;
 }
 
 .project-img-placeholder {
@@ -592,6 +491,7 @@ nav {
     color: #999;
     font-size: 0.9rem;
     line-height: 1.4;
+    flex-grow: 1;
 }
 
 .tech-stack {
@@ -608,6 +508,20 @@ nav {
     padding: 2px 5px;
 }
 
+.click-hint {
+    margin-top: auto;
+    text-align: right;
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+    color: var(--neon-blue);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.project-card:hover .click-hint {
+    opacity: 1;
+}
+
 /* --- CERTIFICATIONS --- */
 .cert-grid {
     display: flex;
@@ -622,6 +536,7 @@ nav {
     color: #ccc;
     font-family: 'Courier New', monospace;
     font-size: 0.9rem;
+    background: rgba(0,0,0,0.5);
 }
 
 .cert-item:hover {
@@ -679,6 +594,118 @@ nav {
     color: #555;
     font-size: 0.8rem;
     letter-spacing: 2px;
+}
+
+/* --- MODAL (POPUP) --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #111;
+    margin: auto;
+    padding: 0;
+    border: 1px solid var(--neon-red);
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 0 50px rgba(230, 0, 35, 0.3);
+    animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+    from {transform: scale(0.8); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+}
+
+.modal-header {
+    background: linear-gradient(90deg, #220005, #000);
+    padding: 1.5rem;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    font-family: var(--font-heading);
+    color: var(--neon-red);
+    font-size: 2rem;
+    margin: 0;
+}
+
+.modal-badge {
+    background: var(--spider-yellow);
+    color: black;
+    padding: 2px 8px;
+    font-weight: bold;
+    font-family: var(--font-comic);
+    transform: rotate(-2deg);
+    font-size: 0.9rem;
+}
+
+.close-modal {
+    color: #aaa;
+    position: absolute;
+    top: 10px; right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    z-index: 2001;
+    transition: 0.3s;
+}
+
+.close-modal:hover {
+    color: var(--neon-red);
+    cursor: none;
+}
+
+.modal-body { padding: 2rem; }
+.modal-body p {
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.modal-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.modal-links .btn {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    margin-right: 1rem;
+}
+
+/* Animations Keyframes */
+@keyframes glitch-anim {
+    0% { clip: rect(10px, 9999px, 30px, 0); }
+    20% { clip: rect(80px, 9999px, 100px, 0); }
+    40% { clip: rect(10px, 9999px, 90px, 0); }
+    60% { clip: rect(40px, 9999px, 60px, 0); }
+    80% { clip: rect(20px, 9999px, 30px, 0); }
+    100% { clip: rect(90px, 9999px, 100px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { clip: rect(60px, 9999px, 90px, 0); }
+    20% { clip: rect(10px, 9999px, 50px, 0); }
+    40% { clip: rect(80px, 9999px, 100px, 0); }
+    60% { clip: rect(30px, 9999px, 40px, 0); }
+    80% { clip: rect(70px, 9999px, 120px, 0); }
+    100% { clip: rect(10px, 9999px, 40px, 0); }
 }
 
 /* Mobile Responsive */
