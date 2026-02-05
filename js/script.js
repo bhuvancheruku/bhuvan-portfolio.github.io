@@ -1,8 +1,8 @@
 // ========================================
-// SPIDER-VERSE JS | v3.0 (Full Integration)
+// SPIDER-VERSE JS | v4.0 (Stable Liquid)
 // ========================================
 
-// --- PROJECT DATA (The "Files") ---
+// --- PROJECT DATA ---
 const missionData = {
     timetable: {
         title: "TIMETABLE GENERATOR",
@@ -59,7 +59,6 @@ const missionData = {
 const modal = document.getElementById("missionModal");
 const closeModal = document.querySelector(".close-modal");
 
-// Open Modal
 document.querySelectorAll(".project-trigger").forEach(card => {
     card.addEventListener("click", () => {
         const missionId = card.getAttribute("data-id");
@@ -70,7 +69,6 @@ document.querySelectorAll(".project-trigger").forEach(card => {
             document.getElementById("modalBadge").innerText = data.badge;
             document.getElementById("modalDesc").innerHTML = data.desc;
             
-            // Clear and add tech tags
             const techContainer = document.getElementById("modalTech");
             techContainer.innerHTML = "";
             data.tech.forEach(t => {
@@ -80,7 +78,6 @@ document.querySelectorAll(".project-trigger").forEach(card => {
                 techContainer.appendChild(tag);
             });
 
-            // Handle Link
             const linkContainer = document.getElementById("modalLinks");
             linkContainer.innerHTML = "";
             if(data.link) {
@@ -96,78 +93,22 @@ document.querySelectorAll(".project-trigger").forEach(card => {
                 span.innerText = "CLASSIFIED // NO PUBLIC REPO";
                 linkContainer.appendChild(span);
             }
-
             modal.style.display = "flex";
         }
     });
 });
 
-// Close Modal
-closeModal.addEventListener("click", () => {
-    modal.style.display = "none";
-});
+closeModal.addEventListener("click", () => { modal.style.display = "none"; });
+window.addEventListener("click", (e) => { if (e.target == modal) modal.style.display = "none"; });
 
-window.addEventListener("click", (e) => {
-    if (e.target == modal) {
-        modal.style.display = "none";
-    }
-});
-
-// --- 1. CUSTOM CURSOR ---
-const cursorDot = document.querySelector('.cursor-dot');
-const cursorOutline = document.querySelector('.cursor-outline');
-
-window.addEventListener('mousemove', function(e) {
-    const posX = e.clientX;
-    const posY = e.clientY;
-
-    cursorDot.style.left = `${posX}px`;
-    cursorDot.style.top = `${posY}px`;
-
-    cursorOutline.animate({
-        left: `${posX}px`,
-        top: `${posY}px`
-    }, { duration: 400, fill: "forwards" });
-});
-
-// --- 2. HACKER TEXT EFFECT ---
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%&";
-
-document.querySelectorAll(".hacker-text, .logo").forEach(element => {
-    element.onmouseover = event => {  
-        let iteration = 0;
-        const originalText = event.target.dataset.value;
-        
-        const interval = setInterval(() => {
-            event.target.innerText = event.target.innerText
-                .split("")
-                .map((letter, index) => {
-                    if(index < iteration) {
-                        return originalText[index];
-                    }
-                    return letters[Math.floor(Math.random() * 26)];
-                })
-                .join("");
-            
-            if(iteration >= originalText.length){ 
-                clearInterval(interval);
-            }
-            
-            iteration += 1 / 3;
-        }, 30);
-    }
-});
-
-setTimeout(() => {
-    const roleText = document.querySelector('.hacker-text');
-    if(roleText) roleText.dispatchEvent(new Event('mouseover'));
-}, 1000);
-
-// --- 3. 3D TILT EFFECT ---
+// --- 3D TILT EFFECT (FIXED STABILITY) ---
 const tiltCards = document.querySelectorAll('.tilt-card, .project-card, .contact-box');
 
 tiltCards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
+        // Disable transition during movement to prevent jitter
+        card.style.transition = 'none';
+
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
@@ -175,18 +116,59 @@ tiltCards.forEach(card => {
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         
-        const rotateX = ((y - centerY) / 15) * -1;
-        const rotateY = (x - centerX) / 15;
+        const rotateX = ((y - centerY) / 20) * -1;
+        const rotateY = (x - centerX) / 20;
 
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
     });
 
     card.addEventListener('mouseleave', () => {
+        // Re-enable transition for smooth reset
+        card.style.transition = 'transform 0.5s ease';
         card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
     });
 });
 
-// --- 4. WEB BACKGROUND ---
+// --- CURSOR ---
+const cursorDot = document.querySelector('.cursor-dot');
+const cursorOutline = document.querySelector('.cursor-outline');
+
+window.addEventListener('mousemove', function(e) {
+    const posX = e.clientX;
+    const posY = e.clientY;
+    cursorDot.style.left = `${posX}px`;
+    cursorDot.style.top = `${posY}px`;
+    cursorOutline.animate({
+        left: `${posX}px`,
+        top: `${posY}px`
+    }, { duration: 400, fill: "forwards" });
+});
+
+// --- HACKER TEXT ---
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%&";
+document.querySelectorAll(".hacker-text, .logo").forEach(element => {
+    element.onmouseover = event => {  
+        let iteration = 0;
+        const originalText = event.target.dataset.value;
+        const interval = setInterval(() => {
+            event.target.innerText = event.target.innerText
+                .split("")
+                .map((letter, index) => {
+                    if(index < iteration) return originalText[index];
+                    return letters[Math.floor(Math.random() * 26)];
+                })
+                .join("");
+            if(iteration >= originalText.length) clearInterval(interval);
+            iteration += 1 / 3;
+        }, 30);
+    }
+});
+setTimeout(() => {
+    const roleText = document.querySelector('.hacker-text');
+    if(roleText) roleText.dispatchEvent(new Event('mouseover'));
+}, 1000);
+
+// --- WEB BACKGROUND ---
 const canvas = document.getElementById('spiderVerse');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
@@ -202,23 +184,19 @@ window.addEventListener('mousemove', (e) => {
 
 class Particle {
     constructor(x, y, directionX, directionY, size, color) {
-        this.x = x;
-        this.y = y;
-        this.directionX = directionX;
-        this.directionY = directionY;
-        this.size = size;
-        this.color = color;
+        this.x = x; this.y = y;
+        this.directionX = directionX; this.directionY = directionY;
+        this.size = size; this.color = color;
     }
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = '#e60023';
+        ctx.fillStyle = '#ff003c';
         ctx.fill();
     }
     update() {
         if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
         if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-
         let dx = mouse.x - this.x;
         let dy = mouse.y - this.y;
         let distance = Math.sqrt(dx*dx + dy*dy);
@@ -243,7 +221,7 @@ function init() {
         let y = (Math.random() * (innerHeight - size * 2) + size * 2);
         let directionX = (Math.random() * 2) - 1;
         let directionY = (Math.random() * 2) - 1;
-        let color = '#e60023';
+        let color = '#ff003c';
         particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
     }
 }
@@ -251,9 +229,7 @@ function init() {
 function animate() {
     requestAnimationFrame(animate);
     ctx.clearRect(0, 0, innerWidth, innerHeight);
-    for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update();
-    }
+    for (let i = 0; i < particlesArray.length; i++) particlesArray[i].update();
     connect();
 }
 
@@ -264,7 +240,7 @@ function connect() {
                            ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
             if (distance < (canvas.width/7) * (canvas.height/7)) {
                 let opacityValue = 1 - (distance/20000);
-                ctx.strokeStyle = 'rgba(230, 0, 35,' + opacityValue + ')';
+                ctx.strokeStyle = 'rgba(255, 0, 60,' + opacityValue + ')';
                 ctx.lineWidth = 1;
                 ctx.beginPath();
                 ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
