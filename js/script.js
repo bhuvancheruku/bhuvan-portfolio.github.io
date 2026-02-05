@@ -1,18 +1,20 @@
 // ========================================
-// SPIDER-VERSE JS | v2.0
+// SPIDER-VERSE JS | v3.0 (Full Integration)
 // ========================================
+
+// --- PROJECT DATA (The "Files") ---
 const missionData = {
     timetable: {
         title: "TIMETABLE GENERATOR",
         badge: "OFFER RECEIVED",
-        desc: "Developed an intelligent timetable generation system using Streamlit and CP-SAT Solver (Google OR-Tools) to automate class scheduling. <br><br><strong>ACHIEVEMENT:</strong> This tool garnered significant interest, leading to an offer/collaboration opportunity from <strong>Malla Reddy University</strong> and <strong>Digii Campus ERP</strong> (as confirmed by correspondence with Punith Ganadinni). <br><br>Features include conflict resolution, faculty availability mapping, and PDF export.",
+        desc: "Developed an intelligent timetable generation system using Streamlit and CP-SAT Solver (Google OR-Tools) to automate class scheduling. <br><br><strong>INDUSTRY RECOGNITION:</strong> This tool garnered significant interest, leading to an offer/collaboration opportunity from <strong>Malla Reddy University</strong> and <strong>Digii Campus ERP</strong> (as confirmed by correspondence with Punith Ganadinni). <br><br>Features include conflict resolution, faculty availability mapping, and PDF export.",
         tech: ["Python", "Streamlit", "Google OR-Tools", "Constraint Programming"],
         link: "https://github.com/bhuvancheruku/timetable_builder"
     },
     disease: {
         title: "DISEASE INSIGHTS",
         badge: "AI HEALTH",
-        desc: "A comprehensive platform assisting healthcare professionals and the public in understanding disease symptoms, causes, and treatments. Provides data visualization of risk factors.",
+        desc: "A comprehensive platform assisting healthcare professionals and the public in understanding disease symptoms, causes, and treatments. Provides data visualization of risk factors and preventive measures.",
         tech: ["Streamlit", "FastAPI", "PostgreSQL", "Chart.js"],
         link: "https://github.com/bhuvancheruku/DiseaseInsight"
     },
@@ -28,7 +30,7 @@ const missionData = {
         badge: "HARDWARE SEC",
         desc: "Developed a secure IoT gateway that protects smart devices using real-time traffic monitoring and Honeypot traps. The system exposes a decoy to mislead attackers while hiding actual devices.",
         tech: ["Raspberry Pi", "Wireshark", "Flask", "Scapy"],
-        link: null // No link provided
+        link: null 
     },
     cctv: {
         title: "CCTV VULN ASSESSMENT",
@@ -118,9 +120,14 @@ const cursorOutline = document.querySelector('.cursor-outline');
 window.addEventListener('mousemove', function(e) {
     const posX = e.clientX;
     const posY = e.clientY;
+
     cursorDot.style.left = `${posX}px`;
     cursorDot.style.top = `${posY}px`;
-    cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 400, fill: "forwards" });
+
+    cursorOutline.animate({
+        left: `${posX}px`,
+        top: `${posY}px`
+    }, { duration: 400, fill: "forwards" });
 });
 
 // --- 2. HACKER TEXT EFFECT ---
@@ -151,7 +158,6 @@ document.querySelectorAll(".hacker-text, .logo").forEach(element => {
     }
 });
 
-// Initial trigger
 setTimeout(() => {
     const roleText = document.querySelector('.hacker-text');
     if(roleText) roleText.dispatchEvent(new Event('mouseover'));
