@@ -5,18 +5,21 @@
 
 /* ===== VARIABLES ===== */
 :root {
-    --spiderman-red: #e23636;
-    --spiderman-blue: #2b4c7e;
-    --spiderman-dark: #0a0e27;
-    --spiderman-light: #f0f4f8;
-    --web-gray: #1a1f3a;
-    --accent-color: #ff4655;
-    --text-light: #ffffff;
-    --text-dark: #333333;
-    --shadow-color: rgba(0, 0, 0, 0.3);
-    --glow-red: rgba(226, 54, 54, 0.5);
-    --glow-blue: rgba(43, 76, 126, 0.5);
+    --bg-main: #05060a;
+    --bg-secondary: #0b0f1a;
+    --bg-glass: rgba(15, 18, 40, 0.55);
+
+    --neon-red: #ff2e2e;
+    --neon-blue: #4da6ff;
+    --neon-purple: #7c7cff;
+
+    --text-main: #e6e6eb;
+    --text-muted: #9ca3af;
+
+    --glow-red: rgba(255, 46, 46, 0.6);
+    --glow-blue: rgba(77, 166, 255, 0.5);
 }
+
 
 /* ===== RESET & BASE ===== */
 * {
@@ -30,12 +33,10 @@ html {
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, var(--spiderman-dark) 0%, var(--web-gray) 100%);
-    color: var(--text-light);
-    overflow-x: hidden;
-    position: relative;
+    background: radial-gradient(circle at top, #0a0f2c 0%, var(--bg-main) 60%);
+    color: var(--text-main);
 }
+
 
 /* ===== WEB PATTERN BACKGROUND ===== */
 .web-pattern {
@@ -711,18 +712,15 @@ section {
 }
 
 .contact-card {
-    background: linear-gradient(135deg, rgba(43, 76, 126, 0.2), rgba(226, 54, 54, 0.1));
-    border: 2px solid rgba(226, 54, 54, 0.3);
-    border-radius: 15px;
-    padding: 2.5rem;
-    text-align: center;
-    transition: all 0.3s ease;
+    background: var(--bg-glass);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .contact-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--spiderman-red);
-    box-shadow: 0 15px 40px var(--glow-red);
+    box-shadow:
+        0 0 20px var(--glow-red),
+        0 0 40px rgba(0, 0, 0, 0.6);
 }
 
 .contact-icon {
