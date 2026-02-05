@@ -327,9 +327,9 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--spiderman-red), var(--accent-color));
-    color: white;
-    box-shadow: 0 5px 15px rgba(226, 54, 54, 0.4);
+    box-shadow:
+        0 0 15px var(--glow-red),
+        inset 0 0 10px rgba(255,255,255,0.1);
 }
 
 .btn-primary:hover {
