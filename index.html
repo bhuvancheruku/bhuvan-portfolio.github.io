@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cheruku Bhuvan - Computer Science Graduate | Risk Assessment & Cybersecurity Professional">
+    <title>Cheruku Bhuvan | Portfolio</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;700&family=Bangers&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Web Pattern Background -->
+    <div class="web-pattern"></div>
+    <canvas id="spiderWeb"></canvas>
+    
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="spider-icon">🕷️</span>
+                <span class="logo-text">CB</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <div class="spider-badge">
+                <div class="badge-circle">
+                    <i class="fas fa-spider"></i>
+                </div>
+            </div>
+            <h1 class="hero-title">
+                <span class="glitch" data-text="CHERUKU BHUVAN">CHERUKU BHUVAN</span>
+            </h1>
+            <div class="hero-subtitle">
+                <span class="typewriter" id="typewriter"></span>
+                <span class="cursor">|</span>
+            </div>
+            <p class="hero-location">
+                <i class="fas fa-map-marker-alt"></i> Hyderabad, India
+            </p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">
+                    <span>Get In Touch</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#about" class="btn btn-secondary">
+                    <span>Learn More</span>
+                    <i class="fas fa-info-circle"></i>
+                </a>
+            </div>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/cheruku-bhuvan" target="_blank" class="social-icon" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/bhuvancheruku" target="_blank" class="social-icon" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:cherukubhuvan@gmail.com" class="social-icon" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="web-line"></div>
+            <div class="spider-down">
+                <i class="fas fa-spider"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="comic-text">ABOUT ME</span>
+                </h2>
+                <div class="title-web"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-card">
+                    <div class="card-web-corner"></div>
+                    <div class="about-text">
+                        <p class="profile-text">
+                            Analytical and detail-oriented <strong>Computer Science graduate</strong> (B.Tech, 2025) with a strong foundation in <strong>risk assessment</strong>, <strong>internal control systems</strong>, and <strong>data-driven auditing</strong>.
+                        </p>
+                        <p class="profile-text">
+                            Experienced in <strong>cybersecurity assessments</strong>, <strong>compliance verification</strong>, and documentation using Excel and data visualization tools.
+                        </p>
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>B.Tech CSE</h3>
+                                <p>Graduate 2025</p>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Cybersecurity</h3>
+                                <p>Risk Assessment</p>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Data Analysis</h3>
+                                <p>Visualization</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="comic-text">SKILLS & EXPERTISE</span>
+                </h2>
+                <div class="title-web"></div>
+            </div>
+            <div class="skills-content">
+                <!-- Technical Skills -->
+                <div class="skills-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-code"></i> Technical Skills
+                    </h3>
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h4>Risk Assessment</h4>
+                            <div class="skill-web"></div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h4>Cybersecurity</h4>
+                            <div class="skill-web"></div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <h4>Compliance Verification</h4>
+                            <div class="skill-web"></div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-table"></i>
+                            </div>
+                            <h4>Excel Proficiency</h4>
+                            <div class="skill-web"></div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <h4>Data Visualization</h4>
+                            <div class="skill-web"></div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h4>Data Analysis</h4>
+                            <div class="skill-web"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Skills -->
+                <div class="skills-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-user-tie"></i> Professional Skills
+                    </h3>
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h4>Analytical Thinking</h4>
+                            <div class="skill-web"></div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h4>Attention to Detail</h4>
+                            <div class="skill-web"></div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                            <h4>Documentation</h4>
+                            <div class="skill-web"></div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-check-double"></i>
+                            </div>
+                            <h4>Internal Controls</h4>
+                            <div class="skill-web"></div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <h4>Problem Solving</h4>
+                            <div class="skill-web"></div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h4>Critical Thinking</h4>
+                            <div class="skill-web"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="comic-text">PROJECTS & EXPERIENCE</span>
+                </h2>
+                <div class="title-web"></div>
+            </div>
+            <div class="projects-content">
+                <div class="project-placeholder">
+                    <div class="placeholder-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Projects Coming Soon!</h3>
+                    <p>This section will showcase my amazing projects and professional experience.</p>
+                    <div class="web-decoration"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="comic-text">GET IN TOUCH</span>
+                </h2>
+                <div class="title-web"></div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h3>Phone</h3>
+                        <a href="tel:+916304098517">+91-63040 98517</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email</h3>
+                        <a href="mailto:cherukubhuvan@gmail.com">cherukubhuvan@gmail.com</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <h3>LinkedIn</h3>
+                        <a href="https://www.linkedin.com/in/cheruku-bhuvan" target="_blank">Connect with me</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <h3>GitHub</h3>
+                        <a href="https://github.com/bhuvancheruku" target="_blank">Check my repos</a>
+                    </div>
+                </div>
+                <div class="download-resume">
+                    <button class="btn-download" onclick="alert('Resume download will be available soon!')">
+                        <i class="fas fa-download"></i>
+                        <span>Download Resume</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Cheruku Bhuvan. All rights reserved.</p>
+            <p class="footer-quote">"With great skills comes great responsibility"</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+</html>
