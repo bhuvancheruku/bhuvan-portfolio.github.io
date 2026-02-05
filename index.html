@@ -6,7 +6,7 @@
     <meta name="description" content="Cheruku Bhuvan - Cyber Security & AI Portfolio">
     <title>Cheruku Bhuvan | Into the Spider-Verse</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;500;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -18,8 +18,25 @@
     <div class="comic-halftone"></div>
     <canvas id="spiderVerse"></canvas>
 
+    <div id="missionModal" class="modal">
+        <div class="modal-content tilt-card">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalTitle">PROJECT TITLE</h2>
+                <div class="modal-badge" id="modalBadge">TOP SECRET</div>
+            </div>
+            <div class="modal-body">
+                <p id="modalDesc">Description goes here...</p>
+                <div class="modal-tech" id="modalTech">
+                    </div>
+                <div class="modal-links" id="modalLinks">
+                    </div>
+            </div>
+        </div>
+    </div>
+
     <nav>
-        <div class="logo" data-value="CHERUKU">CHERUKU</div>
+        <div class="logo" data-value="CHERUKU BHUVAN">CHERUKU BHUVAN</div>
         <div class="nav-links">
             <a href="#home" class="nav-item">HQ</a>
             <a href="#about" class="nav-item">ORIGIN</a>
@@ -172,21 +189,42 @@
         </div>
 
         <div class="projects-grid">
-            <a href="https://github.com/bhuvancheruku/DiseaseInsight" target="_blank" class="project-card tilt-card">
+            
+            <div class="project-card tilt-card project-trigger" 
+                 data-id="timetable">
+                <div class="folder-tab">AUTOMATION</div>
+                <div class="recognition-badge">
+                    <i class="fas fa-star"></i> RECOGNIZED BY DIGII CAMPUS
+                </div>
+                <div class="project-img-placeholder" style="background: linear-gradient(45deg, #cc2b5e, #753a88);">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>Timetable Generator</h3>
+                <p>Intelligent scheduling system using Google OR-Tools. <strong>Offer received from Malla Reddy University & Digii Campus ERP.</strong></p>
+                <div class="tech-stack">
+                    <span>Python</span>
+                    <span>Streamlit</span>
+                    <span>OR-Tools</span>
+                </div>
+                <div class="click-hint">Click for Briefing >></div>
+            </div>
+
+            <div class="project-card tilt-card project-trigger" data-id="disease">
                 <div class="folder-tab">AI_HEALTH</div>
                 <div class="project-img-placeholder" style="background: linear-gradient(45deg, #1a2a6c, #b21f1f);">
                     <i class="fas fa-heartbeat"></i>
                 </div>
                 <h3>Disease Insights</h3>
-                <p>Comprehensive disease info platform for healthcare pros and public. Visualizes symptoms, treatments, and risks.</p>
+                <p>Comprehensive disease info platform. Visualizes symptoms, treatments, and risks for healthcare pros.</p>
                 <div class="tech-stack">
                     <span>Streamlit</span>
                     <span>FastAPI</span>
                     <span>PostgreSQL</span>
                 </div>
-            </a>
+                <div class="click-hint">Click for Briefing >></div>
+            </div>
 
-            <a href="https://github.com/bhuvancheruku/skin-disease-detection" target="_blank" class="project-card tilt-card">
+            <div class="project-card tilt-card project-trigger" data-id="skin">
                 <div class="folder-tab">DEEP_LEARNING</div>
                 <div class="project-img-placeholder" style="background: linear-gradient(45deg, #2b5876, #4e4376);">
                     <i class="fas fa-microscope"></i>
@@ -198,63 +236,69 @@
                     <span>OpenCV</span>
                     <span>CNN</span>
                 </div>
-            </a>
+                <div class="click-hint">Click for Briefing >></div>
+            </div>
 
-            <a href="https://github.com/bhuvancheruku/timetable_builder" target="_blank" class="project-card tilt-card">
-                <div class="folder-tab">AUTOMATION</div>
-                <div class="project-img-placeholder" style="background: linear-gradient(45deg, #cc2b5e, #753a88);">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
-                <h3>Timetable Generator</h3>
-                <p>Intelligent scheduling system using Google OR-Tools to automate class allocation without conflicts.</p>
-                <div class="tech-stack">
-                    <span>Python</span>
-                    <span>Streamlit</span>
-                    <span>OR-Tools</span>
-                </div>
-            </a>
-
-            <div class="project-card tilt-card">
+            <div class="project-card tilt-card project-trigger" data-id="pishield">
                 <div class="folder-tab">IOT_SECURITY</div>
                 <div class="project-img-placeholder" style="background: linear-gradient(45deg, #000000, #434343);">
                     <i class="fas fa-shield-virus"></i>
                 </div>
                 <h3>Pi Shield: IoT Gateway</h3>
-                <p>Secure gateway using Raspberry Pi. Features real-time traffic monitoring and honeypot traps to mislead attackers.</p>
+                <p>Secure gateway using Raspberry Pi. Features real-time traffic monitoring and honeypot traps.</p>
                 <div class="tech-stack">
                     <span>Raspberry Pi</span>
                     <span>Wireshark</span>
                     <span>Honeypot</span>
                 </div>
+                <div class="click-hint">Click for Briefing >></div>
             </div>
 
-            <div class="project-card tilt-card">
+            <div class="project-card tilt-card project-trigger" data-id="cctv">
                 <div class="folder-tab">ETHICAL_HACKING</div>
                 <div class="project-img-placeholder" style="background: linear-gradient(45deg, #1f4037, #99f2c8);">
                     <i class="fas fa-video"></i>
                 </div>
                 <h3>CCTV Vuln Assessment</h3>
-                <p>Exploited CCTV camera login pages on a private network (authorized) using brute-force attacks to demonstrate risks.</p>
+                <p>Exploited CCTV camera login pages on a private network (authorized) using brute-force attacks.</p>
                 <div class="tech-stack">
                     <span>Kali Linux</span>
                     <span>Hydra</span>
                     <span>Burp Suite</span>
                 </div>
+                <div class="click-hint">Click for Briefing >></div>
             </div>
 
-            <div class="project-card tilt-card">
+            <div class="project-card tilt-card project-trigger" data-id="quadra">
                 <div class="folder-tab">ROBOTICS</div>
                 <div class="project-img-placeholder" style="background: linear-gradient(45deg, #f12711, #f5af19);">
                     <i class="fas fa-robot"></i>
                 </div>
                 <h3>Quadra Robot</h3>
-                <p>A quadruped robotic project mimicking animal movement using Arduino and accelerometers for balance.</p>
+                <p>A quadruped robotic project mimicking animal movement using Arduino and accelerometers.</p>
                 <div class="tech-stack">
                     <span>Arduino</span>
                     <span>IoT</span>
                     <span>C++</span>
                 </div>
+                <div class="click-hint">Click for Briefing >></div>
             </div>
+
+             <div class="project-card tilt-card project-trigger" data-id="ats">
+                <div class="folder-tab">DEV_TOOLS</div>
+                <div class="project-img-placeholder" style="background: linear-gradient(45deg, #3a1c71, #d76d77);">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h3>ATS Resume Builder</h3>
+                <p>Designed an ATS-friendly resume builder ensuring optimal formatting for machine parsing.</p>
+                <div class="tech-stack">
+                    <span>HTML/CSS</span>
+                    <span>Python</span>
+                    <span>Auto-Format</span>
+                </div>
+                <div class="click-hint">Click for Briefing >></div>
+            </div>
+
         </div>
     </section>
 
@@ -263,11 +307,15 @@
             <h2 class="section-title">CERTIFIED ACCESS</h2>
         </div>
         <div class="cert-grid">
-            <div class="cert-item">HackerRank: Python (Basic)</div>
-            <div class="cert-item">HackerRank: SQL (Advanced)</div>
-            <div class="cert-item">HackerRank: Problem Solving</div>
-            <div class="cert-item">Verzeo: Cyber Security</div>
-            <div class="cert-item">Bluestock: SDE Intern</div>
+            <div class="cert-item">Bluestock Software Development Engineer</div>
+            <div class="cert-item">Verzeo Cyber Security Intern</div>
+            <div class="cert-item">HackerRank: SQL Advanced</div>
+            <div class="cert-item">HackerRank: SQL Intermediate</div>
+            <div class="cert-item">HackerRank: SQL Basic</div>
+            <div class="cert-item">HackerRank: Problem Solving (Intermediate)</div>
+            <div class="cert-item">HackerRank: Problem Solving (Basic)</div>
+            <div class="cert-item">HackerRank: Python Basics</div>
+            <div class="cert-item">Coursera: Web Page Designing</div>
         </div>
     </section>
 
@@ -303,7 +351,7 @@
         </div>
         
         <footer class="footer">
-            <p>DESIGNED BY CHERUKU BHUVAN // <span style="color:var(--neon-red)">SPIDER-VERSE EDITION v2.0</span></p>
+            <p>DESIGNED BY CHERUKU BHUVAN // <span style="color:var(--neon-red)">SPIDER-VERSE EDITION v3.0</span></p>
         </footer>
     </section>
 
