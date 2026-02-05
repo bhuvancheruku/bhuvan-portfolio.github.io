@@ -1,6 +1,115 @@
 // ========================================
 // SPIDER-VERSE JS | v2.0
 // ========================================
+const missionData = {
+    timetable: {
+        title: "TIMETABLE GENERATOR",
+        badge: "OFFER RECEIVED",
+        desc: "Developed an intelligent timetable generation system using Streamlit and CP-SAT Solver (Google OR-Tools) to automate class scheduling. <br><br><strong>ACHIEVEMENT:</strong> This tool garnered significant interest, leading to an offer/collaboration opportunity from <strong>Malla Reddy University</strong> and <strong>Digii Campus ERP</strong> (as confirmed by correspondence with Punith Ganadinni). <br><br>Features include conflict resolution, faculty availability mapping, and PDF export.",
+        tech: ["Python", "Streamlit", "Google OR-Tools", "Constraint Programming"],
+        link: "https://github.com/bhuvancheruku/timetable_builder"
+    },
+    disease: {
+        title: "DISEASE INSIGHTS",
+        badge: "AI HEALTH",
+        desc: "A comprehensive platform assisting healthcare professionals and the public in understanding disease symptoms, causes, and treatments. Provides data visualization of risk factors.",
+        tech: ["Streamlit", "FastAPI", "PostgreSQL", "Chart.js"],
+        link: "https://github.com/bhuvancheruku/DiseaseInsight"
+    },
+    skin: {
+        title: "SKIN DISEASE DETECTION",
+        badge: "DEEP LEARNING",
+        desc: "Built a CNN model using TensorFlow to classify skin diseases from the HAM10000 dataset. Utilized data augmentation to improve accuracy in identifying skin lesions.",
+        tech: ["TensorFlow", "OpenCV", "Pandas", "CNN"],
+        link: "https://github.com/bhuvancheruku/skin-disease-detection"
+    },
+    pishield: {
+        title: "PI SHIELD: IOT GATEWAY",
+        badge: "HARDWARE SEC",
+        desc: "Developed a secure IoT gateway that protects smart devices using real-time traffic monitoring and Honeypot traps. The system exposes a decoy to mislead attackers while hiding actual devices.",
+        tech: ["Raspberry Pi", "Wireshark", "Flask", "Scapy"],
+        link: null // No link provided
+    },
+    cctv: {
+        title: "CCTV VULN ASSESSMENT",
+        badge: "PEN-TESTING",
+        desc: "Conducted an authorized security assessment on a private network. Exploited CCTV camera login pages using brute-force attacks (Hydra/Burp Suite) to demonstrate default credential risks.",
+        tech: ["Kali Linux", "Hydra", "Nmap", "Burp Suite"],
+        link: null
+    },
+    quadra: {
+        title: "QUADRA ROBOT",
+        badge: "ROBOTICS",
+        desc: "Built a quadruped robot using Arduino and Triple Axis Accelerometers (ADXL335) to mimic animal movement and balance.",
+        tech: ["Arduino", "C++", "IoT Sensors"],
+        link: null
+    },
+    ats: {
+        title: "ATS RESUME BUILDER",
+        badge: "DEV TOOL",
+        desc: "Designed a resume builder that ensures optimal formatting for Applicant Tracking Systems (ATS). Focuses on keyword optimization and clean layouts for machine parsing.",
+        tech: ["HTML/CSS", "Python", "Automation"],
+        link: null
+    }
+};
+
+// --- MODAL LOGIC ---
+const modal = document.getElementById("missionModal");
+const closeModal = document.querySelector(".close-modal");
+
+// Open Modal
+document.querySelectorAll(".project-trigger").forEach(card => {
+    card.addEventListener("click", () => {
+        const missionId = card.getAttribute("data-id");
+        const data = missionData[missionId];
+
+        if(data) {
+            document.getElementById("modalTitle").innerText = data.title;
+            document.getElementById("modalBadge").innerText = data.badge;
+            document.getElementById("modalDesc").innerHTML = data.desc;
+            
+            // Clear and add tech tags
+            const techContainer = document.getElementById("modalTech");
+            techContainer.innerHTML = "";
+            data.tech.forEach(t => {
+                const tag = document.createElement("span");
+                tag.className = "tag";
+                tag.innerText = t;
+                techContainer.appendChild(tag);
+            });
+
+            // Handle Link
+            const linkContainer = document.getElementById("modalLinks");
+            linkContainer.innerHTML = "";
+            if(data.link) {
+                const btn = document.createElement("a");
+                btn.href = data.link;
+                btn.target = "_blank";
+                btn.className = "btn glitch-btn";
+                btn.innerText = "ACCESS REPO";
+                linkContainer.appendChild(btn);
+            } else {
+                const span = document.createElement("span");
+                span.style.color = "#666";
+                span.innerText = "CLASSIFIED // NO PUBLIC REPO";
+                linkContainer.appendChild(span);
+            }
+
+            modal.style.display = "flex";
+        }
+    });
+});
+
+// Close Modal
+closeModal.addEventListener("click", () => {
+    modal.style.display = "none";
+});
+
+window.addEventListener("click", (e) => {
+    if (e.target == modal) {
+        modal.style.display = "none";
+    }
+});
 
 // --- 1. CUSTOM CURSOR ---
 const cursorDot = document.querySelector('.cursor-dot');
@@ -9,14 +118,9 @@ const cursorOutline = document.querySelector('.cursor-outline');
 window.addEventListener('mousemove', function(e) {
     const posX = e.clientX;
     const posY = e.clientY;
-
     cursorDot.style.left = `${posX}px`;
     cursorDot.style.top = `${posY}px`;
-
-    cursorOutline.animate({
-        left: `${posX}px`,
-        top: `${posY}px`
-    }, { duration: 400, fill: "forwards" });
+    cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 400, fill: "forwards" });
 });
 
 // --- 2. HACKER TEXT EFFECT ---
