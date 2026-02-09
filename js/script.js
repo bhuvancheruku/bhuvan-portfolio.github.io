@@ -1,5 +1,5 @@
 // ========================================
-// SPIDER-VERSE JS | v4.0 (Stable Liquid)
+// SPIDER-VERSE JS | v5.0 (Recruiter Tools)
 // ========================================
 
 // --- PROJECT DATA ---
@@ -55,6 +55,31 @@ const missionData = {
     }
 };
 
+// --- RECRUITER WIDGET TOGGLE ---
+const uplinkBtn = document.getElementById("uplinkBtn");
+const uplinkMenu = document.getElementById("uplinkMenu");
+
+uplinkBtn.addEventListener("click", () => {
+    uplinkMenu.classList.toggle("active");
+    const icon = uplinkBtn.querySelector("i");
+    if(uplinkMenu.classList.contains("active")) {
+        icon.classList.remove("fa-comment-dots");
+        icon.classList.add("fa-times");
+    } else {
+        icon.classList.remove("fa-times");
+        icon.classList.add("fa-comment-dots");
+    }
+});
+
+// Close widget if clicked outside
+document.addEventListener("click", (e) => {
+    if (!uplinkBtn.contains(e.target) && !uplinkMenu.contains(e.target)) {
+        uplinkMenu.classList.remove("active");
+        uplinkBtn.querySelector("i").classList.remove("fa-times");
+        uplinkBtn.querySelector("i").classList.add("fa-comment-dots");
+    }
+});
+
 // --- MODAL LOGIC ---
 const modal = document.getElementById("missionModal");
 const closeModal = document.querySelector(".close-modal");
@@ -101,21 +126,17 @@ document.querySelectorAll(".project-trigger").forEach(card => {
 closeModal.addEventListener("click", () => { modal.style.display = "none"; });
 window.addEventListener("click", (e) => { if (e.target == modal) modal.style.display = "none"; });
 
-// --- 3D TILT EFFECT (FIXED STABILITY) ---
+// --- 3D TILT EFFECT (FIXED) ---
 const tiltCards = document.querySelectorAll('.tilt-card, .project-card, .contact-box');
 
 tiltCards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
-        // Disable transition during movement to prevent jitter
         card.style.transition = 'none';
-
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        
         const rotateX = ((y - centerY) / 20) * -1;
         const rotateY = (x - centerX) / 20;
 
@@ -123,7 +144,6 @@ tiltCards.forEach(card => {
     });
 
     card.addEventListener('mouseleave', () => {
-        // Re-enable transition for smooth reset
         card.style.transition = 'transform 0.5s ease';
         card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
     });
@@ -168,7 +188,7 @@ setTimeout(() => {
     if(roleText) roleText.dispatchEvent(new Event('mouseover'));
 }, 1000);
 
-// --- WEB BACKGROUND ---
+// --- WEB BACKGROUND (DEPTH PARALLAX) ---
 const canvas = document.getElementById('spiderVerse');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
@@ -197,6 +217,7 @@ class Particle {
     update() {
         if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
         if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+        
         let dx = mouse.x - this.x;
         let dy = mouse.y - this.y;
         let distance = Math.sqrt(dx*dx + dy*dy);
